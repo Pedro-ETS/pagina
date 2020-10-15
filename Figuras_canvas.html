@@ -1,0 +1,133 @@
+<head>
+    <title>Programa figuras</title>
+    <link rel="stylesheet" typr="text/css" href="estilos.css" media="all">
+</head>
+<body>
+<div class="contenedor">
+
+<div>Seleccione una figura: 
+    <select id="opcion" onchange="cambiafigura(this.value)">
+        <option>TRIANGULO</option> <option>CUADRADO</option> <option>RECTANGULO</option> <option>CIRCULO</option> 
+    </select>
+</div>
+                <div>Selecciones color    <input id="color" type="color" /></div>
+
+    <div id="miTriangulo">
+        <span>X </span><input type="text" id="trianguloX">
+        <span> Y </span><input type="text" id="trianguloY">
+        <span>Base </span><input type="text" id="trianguloBase">
+        <span>Altura </span><input type="text" id="trianguloAltura">
+    </div>
+
+   
+
+    <div id="miCuadrado">
+        <span>X </span><input type="text" id="cuadradoX">
+        <span>Y </span><input type="text" id="cuadradoY">
+        <span>Lado </span><input type="text" id="cuadradoLado">
+    </div>
+
+    
+
+    <div id="miRectangulo">
+        <span> X </span><input type="text" id="rectanguloX">
+        <span>Y </span><input type="text" id="rectanguloY">
+        <span>Base </span><input type="text" id="rectanguloBase">
+        <span>Altura </span><input type="text" id="rectanguloAltura">
+    </div>
+
+   
+
+    <div id="miCirculo">
+        <span>X </span><input type="text" id="circuloX">
+        <span> Y </span><input type="text" id="circuloY">
+        <span>Radio </span><input type="text" id="circuloRadio">
+    </div>
+
+    <button type="button" 
+    style="width: 82%; align-self: center; background-color: rgb(90, 95, 105); height: 5%;  padding: 5px; border-radius: 10; color: white; font-weight: bold;" 
+    onclick="dibujarfigura()">Crear figura</button>        
+    </div>
+<br><br><br>
+<canvas id="canvas"></canvas>
+</body>
+</html>
+
+
+<script>
+function cambiafigura(tipo)
+{
+    document.getElementById("miTriangulo").style.display="none";
+    document.getElementById("miCuadrado").style.display="none";
+    document.getElementById("miRectangulo").style.display="none";
+    document.getElementById("miCirculo").style.display="none";
+    if(tipo == "TRIANGULO")
+    {
+        document.getElementById("miTriangulo").style.display="flex";
+    }else if(tipo == "CUADRADO")
+    {
+        document.getElementById("miCuadrado").style.display="flex";
+    }else if(tipo == "RECTANGULO")
+    {
+        document.getElementById("miRectangulo").style.display="flex";
+    }else if(tipo == "CIRCULO")
+    {
+        document.getElementById("miCirculo").style.display="flex";
+    }
+}
+
+
+function dibujarfigura(){
+
+canvas = document.getElementById('canvas');
+if (canvas.getContext) {
+var ctx = canvas.getContext('2d');
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+ctx.fillStyle = document.getElementById("color").value;
+
+
+switch(document.getElementById("opcion").value){
+
+    case "TRIANGULO":
+        x = parseInt(document.getElementById("trianguloX").value);
+        y = parseInt(document.getElementById("trianguloY").value);
+        base = parseInt(document.getElementById("trianguloBase").value);
+        altura = parseInt(document.getElementById("trianguloAltura").value);
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(Math.abs((base/2)-x), y+altura);
+        ctx.lineTo((base/2)+x, y+altura);
+        ctx.closePath();
+        ctx.fill();
+    break;
+
+        case "CUADRADO":
+        x = parseInt(document.getElementById("cuadradoX").value);
+        y = parseInt(document.getElementById("cuadradoY").value);
+        lado = parseInt(document.getElementById("cuadradoLado").value);
+        ctx.fillRect(x,y,lado,lado);
+                 break;
+
+          case "RECTANGULO":
+          x = parseInt(document.getElementById("rectanguloX").value);
+           y = parseInt(document.getElementById("rectanguloY").value);
+          base = parseInt(document.getElementById("rectanguloBase").value);
+          altura = parseInt(document.getElementById("rectanguloAltura").value);
+          ctx.fillRect(x,y,base,altura);
+                         break;
+                    case "CIRCULO":
+                     x = parseInt(document.getElementById("circuloX").value);
+                     y = parseInt(document.getElementById("circuloY").value);
+                    radio = parseInt(document.getElementById("circuloRadio").value);
+                    ctx.beginPath();
+                    ctx.arc(x,y,radio, 0, Math.PI*2, false);
+                    ctx.fill();
+                           break;
+}  
+
+}
+
+}
+
+
+</script>
